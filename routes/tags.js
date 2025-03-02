@@ -1,15 +1,18 @@
-import {Router} from "express";
+import express from "express";
 import fs from "fs";
 
-const router=Router();
+const router = express.Router();
 const tagsFile="./data/tags.json";
 
-const readData = async () => JSON.parse(await fs.readFile(tagsFile, "utf-8"));
+const readData =  () => {
+    const data =  fs.readFileSync(tagsFile, "utf-8");
+    return JSON.parse(data);
+};
 
 //get /tags
-router.get("/", async (req,res) =>{
+router.get("/",  (_req,res) =>{
     try{
-        const tags = await readData();
+        const tags =  readData();
         res.json(tags);
     } catch (error) {
         res.status(500).json({message:"Error reading tags data", error});

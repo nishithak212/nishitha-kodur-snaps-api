@@ -22,6 +22,9 @@ app.use(express.static("public"));
 // parses JSON in the request body and adds it as `req.body`
 app.use(express.json());
 
+//Static files
+app.use(express.static("public")); //--general static files
+app.use('/images', express.static("public/images")); //--serve images
 
 //Use routes
 app.use("/photos", photoRoutes);
