@@ -1,14 +1,11 @@
-import express from 'express';
-import cors from 'cors';
-import 'dotenv/config';
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
 import photoRoutes from "./routes/photos.js";
 import tagsRoutes from "./routes/tags.js";
 
-
-
-
 //define a port
-const port=process.env.PORT ?? 5050;
+const port = process.env.PORT ?? 5050;
 
 //create an express instance
 const app = express();
@@ -24,19 +21,12 @@ app.use(express.json());
 
 //Static files
 app.use(express.static("public")); //--general static files
-app.use('/photos', express.static("public/photos")); //--serve images
+app.use("/photos", express.static("public/photos")); //--serve images
 
 //Use routes
 app.use("/photos", photoRoutes);
 app.use("/tags", tagsRoutes);
-/*
-//standalone requests
-app.get('/',(_req,res)=>{
-    res.send("<h1>Welcome to Snaps!</h1>");
-})
 
-*/
-
-app.listen(port,()=>{
-    console.log(`Server listening on port:${port}`);
+app.listen(port, () => {
+  console.log(`Server listening on port:${port}`);
 });
