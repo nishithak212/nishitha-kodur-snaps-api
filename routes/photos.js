@@ -24,7 +24,14 @@ const writeData = (data) => {
 router.get("/", (_req,res)=>{
     try{
         const photos =  readData();
-        res.json(photos);
+        const formattedPhotos = photos.map(({id, photo, photoDescription, photographer, tags}) => ({
+            id,
+            photo,
+            photoDescription,
+            photographer,
+            tags
+        }));
+        res.json(formattedPhotos);
     } catch (error){
         res.status(500).json({message:"Error reading data", error: error.message});
     }
@@ -36,7 +43,9 @@ router.get("/:id",  (req,res)=>{
         const photos =  readData();
         const photo = photos.find((p) => p.id === req.params.id);
         if(!photo) return res.status(404).json({message:"Photo not found"});
-        res.json(photo);
+
+        const {id, photo: photoUrl, photoDescription, photographer, likes, timestamp, tags} = photo;
+        res.json({id, photo: photoUrl, photoDescription, photographer, likes, timestamp, tags});
     } catch (error){
         res.status(500).json({message:"Error fetching photo", error});
     }
@@ -48,6 +57,8 @@ router.get("/:id/comments", (req,res)=>{
         const photos =  readData();
         const photo = photos.find((p) => p.id === req.params.id);
         if(!photo) return res.status(404).json({message:"Photo not found"});
+
+        
         res.json(photo.comments || []);
     } catch (error){
         res.status(500).json({message:"Error fetching comments", error});
