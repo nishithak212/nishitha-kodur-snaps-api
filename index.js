@@ -24,7 +24,7 @@ app.use(express.json());
 
 //Static files
 app.use(express.static("public")); //--general static files
-app.use('/images', express.static("public/images")); //--serve images
+app.use('/photos', express.static("public/photos")); //--serve images
 
 //Use routes
 app.use("/photos", photoRoutes);
