@@ -12,7 +12,11 @@ const readData = () =>{
 };
 
 const writeData = (data) => {
+    try{
     fs.writeFileSync(photosFile,JSON.stringify(data, null, 2));
+    } catch(error){
+        console.error("Error writing data:", error);
+    }
 };
 
 //get /photos
