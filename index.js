@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
-import './routes/photos.js';
+import photoRoutes from "./routes/photos.js";
+import tagsRoutes from "./routes/tags.js";
+
+
 
 
 //define a port
@@ -20,11 +23,16 @@ app.use(express.static("public"));
 app.use(express.json());
 
 
+//Use routes
+app.use("/photos", photoRoutes);
+app.use("/tags", tagsRoutes);
+/*
 //standalone requests
 app.get('/',(_req,res)=>{
     res.send("<h1>Welcome to Snaps!</h1>");
 })
 
+*/
 
 app.listen(port,()=>{
     console.log(`Server listening on port:${port}`);
